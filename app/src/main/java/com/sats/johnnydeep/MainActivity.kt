@@ -63,6 +63,7 @@ private fun MainScreen() {
 
         Button(
           modifier = Modifier.fillMaxWidth(),
+          enabled = textFieldValue.isNotEmpty(),
           onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, textFieldValue.toUri())) },
         ) {
           Text(stringResource(R.string.open_link_button_label))
