@@ -4,4 +4,5 @@
 
   <string name="open_link_button_label">Open link</string>
 
+  <string name="activity_not_found_toast_message">Could not find an app to handle that intent</string>
 </resources>
