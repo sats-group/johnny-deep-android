@@ -3,6 +3,7 @@ import dagger.hilt.android.plugin.HiltExtension
 plugins {
   id("com.android.application")
   id("dagger.hilt.android.plugin")
+  id("com.google.devtools.ksp") version "1.6.0-1.0.2"
 
   kotlin("android")
   kotlin("kapt")
@@ -18,6 +19,10 @@ android {
 
     versionCode = 1
     versionName = "0.1.0"
+
+    ksp {
+      arg("room.schemaLocation", "$projectDir/room-schemas")
+    }
   }
 
   buildFeatures {
@@ -82,6 +87,14 @@ dependencies {
 
   androidTestImplementation(libs.androidx.compose.ui.test.junit4)
 
+  // AndroidX – Lifecycle
+  implementation(libs.androidx.lifecycle.viewModel.compose)
+
+  // AndroidX – Room
+  implementation(libs.androidx.room.runtime)
+
+  ksp(libs.androidx.room.compiler)
+
   // Dagger
   implementation(libs.dagger.hilt.android)
 
@@ -95,4 +108,7 @@ dependencies {
 
   // Kotlin
   implementation(libs.kotlin.stdLib)
+
+  // KotlinX – DateTime
+  implementation(libs.kotlinx.datetime)
 }
