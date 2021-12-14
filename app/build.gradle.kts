@@ -1,7 +1,11 @@
+import dagger.hilt.android.plugin.HiltExtension
+
 plugins {
   id("com.android.application")
+  id("dagger.hilt.android.plugin")
 
   kotlin("android")
+  kotlin("kapt")
 }
 
 android {
@@ -50,6 +54,14 @@ android {
   }
 }
 
+kapt {
+  correctErrorTypes = true
+}
+
+configure<HiltExtension> {
+  enableAggregatingTask = true
+}
+
 dependencies {
   // Accompanist
   implementation(libs.accompanist.insets)
@@ -69,6 +81,11 @@ dependencies {
   implementation(libs.androidx.compose.ui.ui)
 
   androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+
+  // Dagger
+  implementation(libs.dagger.hilt.android)
+
+  kapt(libs.dagger.hilt.compiler)
 
   // Google Material Design Components
   implementation(libs.google.material)
