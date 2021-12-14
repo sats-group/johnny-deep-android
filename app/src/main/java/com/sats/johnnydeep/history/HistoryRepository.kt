@@ -24,6 +24,12 @@ class HistoryRepository @Inject constructor(private val intentsDao: IntentsDao) 
     intentsDao.upsertIntent(entity)
   }
 
+  suspend fun addOrUpdateIntent(previousIntent: PreviousIntent) {
+    val entity = PreviousIntentEntity(uri = previousIntent.uri, openedAt = previousIntent.openedAt.toString())
+
+    intentsDao.upsertIntent(entity)
+  }
+
   suspend fun removePreviousIntent(previousIntent: PreviousIntent) {
     intentsDao.deleteIntent(previousIntent.uri)
   }

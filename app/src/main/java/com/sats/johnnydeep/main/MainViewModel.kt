@@ -54,10 +54,21 @@ class MainViewModel @Inject constructor(
   fun onRemovePreviousButtonClicked(previousIntent: PreviousIntent) {
     viewModelScope.launch {
       historyRepository.removePreviousIntent(previousIntent)
+
+      _viewEffect.send(
+        MainViewEffect.ShowIntentDeletedSnackBar(
+          undoAction = {
+            viewModelScope.launch {
+              historyRepository.addOrUpdateIntent(previousIntent)
+            }
+          },
+        ),
+      )
     }
   }
 }
 
 sealed interface MainViewEffect {
   data class StartIntent(val uri: Uri) : MainViewEffect
+  data class ShowIntentDeletedSnackBar(val undoAction: () -> Unit) : MainViewEffect
 }

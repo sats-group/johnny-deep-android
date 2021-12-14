@@ -21,6 +21,8 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.ListItem
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
+import androidx.compose.material.SnackbarDuration
+import androidx.compose.material.SnackbarResult
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
@@ -68,6 +70,20 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
               scaffoldState.snackbarHostState.showSnackbar(
                 context.getString(R.string.activity_not_found_toast_message)
               )
+            }
+          }
+        }
+        is MainViewEffect.ShowIntentDeletedSnackBar -> {
+          coroutineScope.launch {
+            val result = scaffoldState.snackbarHostState.showSnackbar(
+              message = context.getString(R.string.previous_intent_deleted),
+              actionLabel = context.getString(R.string.previous_intent_deleted_undo_button_label),
+              duration = SnackbarDuration.Long,
+            )
+
+            when (result) {
+              SnackbarResult.ActionPerformed -> viewEffect.undoAction()
+              else -> {}
             }
           }
         }
