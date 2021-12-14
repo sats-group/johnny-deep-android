@@ -14,28 +14,44 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.sats.johnnydeep.R
 import com.sats.johnnydeep.ui.theme.JohnnyDeepTheme
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @Composable
-fun MainScreen() {
+fun MainScreen(viewModel: MainViewModel = viewModel()) {
   val context = LocalContext.current
-  var textFieldValue by remember { mutableStateOf("") }
   val scaffoldState = rememberScaffoldState()
   val coroutineScope = rememberCoroutineScope()
+  val inputValue = viewModel.inputValue
+
+  LaunchedEffect(Unit) {
+    viewModel.viewEffect.collect { viewEffect ->
+      when (viewEffect) {
+        is MainViewEffect.StartIntent -> {
+          try {
+            context.startActivity(Intent(Intent.ACTION_VIEW, viewEffect.uri))
+          } catch (activityNotFoundException: ActivityNotFoundException) {
+            coroutineScope.launch {
+              scaffoldState.snackbarHostState.showSnackbar(
+                context.getString(R.string.activity_not_found_toast_message)
+              )
+            }
+          }
+        }
+      }
+    }
+  }
 
   JohnnyDeepTheme {
     Scaffold(
@@ -55,24 +71,14 @@ fun MainScreen() {
       ) {
         TextField(
           modifier = Modifier.fillMaxWidth(),
-          value = textFieldValue,
-          onValueChange = { textFieldValue = it },
+          value = inputValue,
+          onValueChange = viewModel::onInputValueChange,
         )
 
         Button(
           modifier = Modifier.fillMaxWidth(),
-          enabled = textFieldValue.isNotEmpty(),
-          onClick = {
-            try {
-              context.startActivity(Intent(Intent.ACTION_VIEW, textFieldValue.toUri()))
-            } catch (activityNotFoundException: ActivityNotFoundException) {
-              coroutineScope.launch {
-                scaffoldState.snackbarHostState.showSnackbar(
-                  context.getString(R.string.activity_not_found_toast_message)
-                )
-              }
-            }
-          },
+          enabled = inputValue.isNotEmpty(),
+          onClick = viewModel::onOpenClicked,
         ) {
           Text(stringResource(R.string.open_link_button_label))
         }

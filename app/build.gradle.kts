@@ -29,6 +29,10 @@ android {
     compose = true
   }
 
+  compileOptions {
+    isCoreLibraryDesugaringEnabled = true
+  }
+
   composeOptions {
     kotlinCompilerExtensionVersion = libs.versions.jetpack.compose.get()
   }
@@ -68,6 +72,9 @@ configure<HiltExtension> {
 }
 
 dependencies {
+  // Android
+  coreLibraryDesugaring(libs.android.desugarJdkLibs)
+
   // Accompanist
   implementation(libs.accompanist.insets)
   implementation(libs.accompanist.insetsUi)
