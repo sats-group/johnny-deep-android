@@ -1,10 +1,7 @@
-package com.sats.johnnydeep
+package com.sats.johnnydeep.main
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,27 +25,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import androidx.core.view.WindowCompat
 import com.google.accompanist.insets.navigationBarsWithImePadding
+import com.sats.johnnydeep.R
 import com.sats.johnnydeep.ui.theme.JohnnyDeepTheme
 import kotlinx.coroutines.launch
 
-class MainActivity : ComponentActivity() {
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
-    WindowCompat.setDecorFitsSystemWindows(window, false)
-
-    setContent {
-      MainScreen()
-    }
-  }
-}
-
 @Composable
-private fun MainScreen() {
+fun MainScreen() {
   val context = LocalContext.current
-  var textFieldValue by remember { mutableStateOf("sats://qr") }
+  var textFieldValue by remember { mutableStateOf("") }
   val scaffoldState = rememberScaffoldState()
   val coroutineScope = rememberCoroutineScope()
 
