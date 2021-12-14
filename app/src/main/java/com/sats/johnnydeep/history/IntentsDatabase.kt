@@ -5,12 +5,14 @@ import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Singleton
 
 @Database(
@@ -28,6 +30,9 @@ abstract class IntentsDatabase : RoomDatabase() {
 interface IntentsDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun upsertIntent(intent: PreviousIntentEntity)
+
+  @Query("SELECT * FROM intents ORDER BY openedAt DESC")
+  fun getIntents(): Flow<List<PreviousIntentEntity>>
 }
 
 @Module

@@ -8,9 +8,11 @@ import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sats.johnnydeep.history.HistoryRepository
+import com.sats.johnnydeep.history.PreviousIntent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,11 +24,24 @@ class MainViewModel @Inject constructor(
   private val _viewEffect = Channel<MainViewEffect>()
   val viewEffect: Flow<MainViewEffect> = _viewEffect.receiveAsFlow()
 
+  var previousIntents: List<PreviousIntent> by mutableStateOf(emptyList())
+    private set
+
   var inputValue: String by mutableStateOf("")
     private set
 
+  init {
+    viewModelScope.launch {
+      historyRepository.getIntentsHistory().collect { previousIntents = it }
+    }
+  }
+
   fun onInputValueChange(newValue: String) {
     inputValue = newValue
+  }
+
+  fun onPreviousIntentClicked(previousIntent: PreviousIntent) {
+    inputValue = previousIntent.uri
   }
 
   fun onOpenClicked() {
