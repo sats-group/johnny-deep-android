@@ -33,6 +33,9 @@ interface IntentsDao {
 
   @Query("SELECT * FROM intents ORDER BY openedAt DESC")
   fun getIntents(): Flow<List<PreviousIntentEntity>>
+
+  @Query("DELETE FROM intents WHERE uri = :uri")
+  suspend fun deleteIntent(uri: String)
 }
 
 @Module

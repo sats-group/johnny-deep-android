@@ -16,11 +16,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.ListItem
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -73,7 +77,13 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
 
   MainScreenContent(
     scaffoldState = scaffoldState,
-    history = { History(previousIntents, onItemClicked = viewModel::onPreviousIntentClicked) },
+    history = {
+      History(
+        previousIntents = previousIntents,
+        onItemClicked = viewModel::onPreviousIntentClicked,
+        onRemoveItem = viewModel::onRemovePreviousButtonClicked,
+      )
+    },
     form = {
       Form(
         inputValue = inputValue,
@@ -111,7 +121,6 @@ private fun MainScreenContent(
       }
     }
   }
-
 }
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
@@ -119,6 +128,7 @@ private fun MainScreenContent(
 private fun History(
   previousIntents: List<PreviousIntent>,
   onItemClicked: (PreviousIntent) -> Unit,
+  onRemoveItem: (PreviousIntent) -> Unit,
 ) {
   LazyColumn(
     modifier = Modifier.fillMaxSize(),
@@ -136,6 +146,11 @@ private fun History(
           .clickable(onClick = { onItemClicked(previousIntent) }),
         text = { Text(previousIntent.uri) },
         secondaryText = { Text(previousIntent.openedAt.toReadableString()) },
+        trailing = {
+          IconButton(onClick = { onRemoveItem(previousIntent) }) {
+            Icon(Icons.Default.Delete, contentDescription = null)
+          }
+        },
       )
     }
   }

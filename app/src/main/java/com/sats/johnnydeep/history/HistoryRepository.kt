@@ -23,4 +23,8 @@ class HistoryRepository @Inject constructor(private val intentsDao: IntentsDao) 
 
     intentsDao.upsertIntent(entity)
   }
+
+  suspend fun removePreviousIntent(previousIntent: PreviousIntent) {
+    intentsDao.deleteIntent(previousIntent.uri)
+  }
 }

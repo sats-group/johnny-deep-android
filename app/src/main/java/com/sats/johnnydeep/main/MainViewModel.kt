@@ -50,6 +50,12 @@ class MainViewModel @Inject constructor(
       _viewEffect.send(MainViewEffect.StartIntent(inputValue.toUri()))
     }
   }
+
+  fun onRemovePreviousButtonClicked(previousIntent: PreviousIntent) {
+    viewModelScope.launch {
+      historyRepository.removePreviousIntent(previousIntent)
+    }
+  }
 }
 
 sealed interface MainViewEffect {
