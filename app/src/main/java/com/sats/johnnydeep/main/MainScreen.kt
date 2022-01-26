@@ -26,6 +26,7 @@ import androidx.compose.material.SnackbarResult
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
@@ -185,6 +186,13 @@ private fun Form(inputValue: String, onInputChange: (newValue: String) -> Unit, 
       modifier = Modifier.fillMaxWidth(),
       value = inputValue,
       onValueChange = onInputChange,
+      trailingIcon = {
+        if (inputValue.isNotEmpty()) {
+          IconButton(onClick = { onInputChange("") }) {
+            Icon(Icons.Default.Clear, contentDescription = null)
+          }
+        }
+      }
     )
 
     Button(
