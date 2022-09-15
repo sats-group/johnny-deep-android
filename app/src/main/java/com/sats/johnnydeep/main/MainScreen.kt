@@ -65,7 +65,11 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
       when (viewEffect) {
         is MainViewEffect.StartIntent -> {
           try {
-            context.startActivity(Intent(Intent.ACTION_VIEW, viewEffect.uri))
+            val intent = Intent(Intent.ACTION_VIEW, viewEffect.uri).apply {
+              addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+
+            context.startActivity(intent)
           } catch (activityNotFoundException: ActivityNotFoundException) {
             coroutineScope.launch {
               scaffoldState.snackbarHostState.showSnackbar(
