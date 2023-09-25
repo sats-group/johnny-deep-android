@@ -1,10 +1,9 @@
-enableFeaturePreview("VERSION_CATALOGS")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {
   repositories {
-    gradlePluginPortal()
     google()
+    gradlePluginPortal()
   }
 }
 
@@ -14,7 +13,7 @@ dependencyResolutionManagement {
   repositories {
     google()
     mavenCentral()
-    jcenter()
+    mavenLocal()
   }
 }
 

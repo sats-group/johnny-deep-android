@@ -1,32 +1,38 @@
 [versions]
-accompanist = "0.21.4-beta"
-jetpack-activity = "1.3.1"
-jetpack-compose = "1.1.0-beta04"
-jetpack-room = "2.4.0-rc01"
-dagger-hilt = "2.40.5"
-kotlin = "1.6.0"
-ksp = "1.5.21"
+agp = "8.1.1"
+dagger = "2.48"
+jetpack-activity = "1.7.2"
+jetpack-compose = "1.5.1"
+jetpack-compose-compiler = "1.5.3" # referenced directly by name in build scripts
+jetpack-room = "2.5.2"
+kotlin = "1.9.10"
+ksp = "1.9.10-1.0.13"
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [libraries]
-android-desugarJdkLibs = "com.android.tools:desugar_jdk_libs:1.1.5"
-accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "accompanist" }
-accompanist-insetsUi = { module = "com.google.accompanist:accompanist-insets-ui", version.ref = "accompanist" }
+accompanist-insetsUi = "com.google.accompanist:accompanist-insets-ui:0.32.0"
+android-desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.0.3"
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "jetpack-activity" }
 androidx-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "jetpack-compose" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "jetpack-compose" }
 androidx-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "jetpack-compose" }
-androidx-lifecycle-viewModel-compose = "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0"
-androidx-room-runtime = { module = "androidx.room:room-ktx", version.ref = "jetpack-room" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "jetpack-room" }
-dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger-hilt" }
-dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger-hilt" }
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "jetpack-compose" }
 androidx-compose-material-material = { module = "androidx.compose.material:material", version.ref = "jetpack-compose" }
 androidx-compose-runtime-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "jetpack-compose" }
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "jetpack-compose" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "jetpack-compose" }
 androidx-compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "jetpack-compose" }
-google-material = { module = "com.google.android.material:material", version.require = "1.4.0" }
+androidx-lifecycle-viewModel-compose = "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2"
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "jetpack-room" }
+androidx-room-runtime = { module = "androidx.room:room-ktx", version.ref = "jetpack-room" }
+dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
+dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
+google-material = "com.google.android.material:material:1.9.0"
 junit4 = { module = "junit:junit", version.require = "4.13.2" }
 kotlin-stdLib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk7", version.ref = "kotlin" }
-kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.3.1"
+kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.4.1"

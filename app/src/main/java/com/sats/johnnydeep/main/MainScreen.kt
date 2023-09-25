@@ -7,9 +7,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -20,9 +24,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.ListItem
 import androidx.compose.material.Scaffold
-import androidx.compose.material.ScaffoldState
 import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.SnackbarResult
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
@@ -35,16 +39,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.accompanist.insets.LocalWindowInsets
-import com.google.accompanist.insets.navigationBarsWithImePadding
-import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.sats.johnnydeep.R
 import com.sats.johnnydeep.history.PreviousIntent
 import com.sats.johnnydeep.ui.theme.JohnnyDeepTheme
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
@@ -78,6 +80,7 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
             }
           }
         }
+
         is MainViewEffect.ShowIntentDeletedSnackBar -> {
           coroutineScope.launch {
             val result = scaffoldState.snackbarHostState.showSnackbar(
@@ -96,49 +99,35 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
     }
   }
 
-  MainScreenContent(
-    scaffoldState = scaffoldState,
-    history = {
-      History(
-        previousIntents = previousIntents,
-        onItemClicked = viewModel::onPreviousIntentClicked,
-        onRemoveItem = viewModel::onRemovePreviousButtonClicked,
-      )
-    },
-    form = {
-      Form(
-        inputValue = inputValue,
-        onInputChange = viewModel::onInputValueChange,
-        onOpenClicked = viewModel::onOpenClicked,
-      )
-    },
-  )
-}
-
-@Composable
-private fun MainScreenContent(
-  scaffoldState: ScaffoldState,
-  history: @Composable () -> Unit,
-  form: @Composable () -> Unit,
-) {
   JohnnyDeepTheme {
     Scaffold(
       scaffoldState = scaffoldState,
-      bottomBar = { Spacer(Modifier.navigationBarsWithImePadding()) },
+      bottomBar = {
+        Form(
+          inputValue = inputValue,
+          onInputChange = viewModel::onInputValueChange,
+          onOpenClicked = viewModel::onOpenClicked,
+          modifier = Modifier
+              .navigationBarsPadding()
+              .imePadding(),
+        )
+      },
     ) { contentPadding ->
       Column(
-        Modifier
-          .fillMaxSize()
-          .padding(contentPadding)
-          .padding(bottom = 80.dp), // make room for the snack bar
+          Modifier
+              .fillMaxSize()
+              .padding(contentPadding)
       ) {
-        Box(Modifier.weight(1f)) {
-          history()
-        }
-
-        Divider(Modifier.padding(bottom = 16.dp))
-
-        form()
+        History(
+          previousIntents = previousIntents,
+          onItemClicked = viewModel::onPreviousIntentClicked,
+          onRemoveItem = viewModel::onRemovePreviousButtonClicked,
+          modifier = Modifier.weight(1f),
+          contentPadding = PaddingValues(
+            start = contentPadding.calculateStartPadding(LocalLayoutDirection.current),
+            end = contentPadding.calculateEndPadding(LocalLayoutDirection.current),
+          )
+        )
       }
     }
   }
@@ -150,21 +139,19 @@ private fun History(
   previousIntents: List<PreviousIntent>,
   onItemClicked: (PreviousIntent) -> Unit,
   onRemoveItem: (PreviousIntent) -> Unit,
+  modifier: Modifier = Modifier,
+  contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
   LazyColumn(
-    modifier = Modifier.fillMaxSize(),
-    contentPadding = rememberInsetsPaddingValues(
-      insets = LocalWindowInsets.current.statusBars,
-      additionalTop = 16.dp,
-      additionalBottom = 0.dp,
-    ),
+    modifier = modifier.fillMaxSize(),
+    contentPadding = contentPadding,
     reverseLayout = true,
   ) {
     items(previousIntents, key = { it.uri }) { previousIntent ->
       ListItem(
         modifier = Modifier
-          .animateItemPlacement()
-          .clickable(onClick = { onItemClicked(previousIntent) }),
+            .animateItemPlacement()
+            .clickable(onClick = { onItemClicked(previousIntent) }),
         text = { Text(previousIntent.uri) },
         secondaryText = { Text(previousIntent.openedAt.toReadableString()) },
         trailing = {
@@ -178,33 +165,38 @@ private fun History(
 }
 
 @Composable
-private fun Form(inputValue: String, onInputChange: (newValue: String) -> Unit, onOpenClicked: () -> Unit) {
-  Column(
-    modifier = Modifier
-      .padding(horizontal = 16.dp)
-      .padding(bottom = 0.dp),
-    horizontalAlignment = Alignment.CenterHorizontally,
-    verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Bottom),
-  ) {
-    TextField(
-      modifier = Modifier.fillMaxWidth(),
-      value = inputValue,
-      onValueChange = onInputChange,
-      trailingIcon = {
-        if (inputValue.isNotEmpty()) {
-          IconButton(onClick = { onInputChange("") }) {
-            Icon(Icons.Default.Clear, contentDescription = null)
+private fun Form(
+  inputValue: String,
+  onInputChange: (newValue: String) -> Unit,
+  onOpenClicked: () -> Unit,
+  modifier: Modifier = Modifier,
+) {
+  Surface(elevation = 2.dp) {
+    Column(
+      modifier = modifier.padding(16.dp),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Bottom),
+    ) {
+      TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = inputValue,
+        onValueChange = onInputChange,
+        trailingIcon = {
+          if (inputValue.isNotEmpty()) {
+            IconButton(onClick = { onInputChange("") }) {
+              Icon(Icons.Default.Clear, contentDescription = null)
+            }
           }
         }
-      }
-    )
+      )
 
-    Button(
-      modifier = Modifier.fillMaxWidth(),
-      enabled = inputValue.isNotEmpty(),
-      onClick = onOpenClicked,
-    ) {
-      Text(stringResource(R.string.open_link_button_label))
+      Button(
+        modifier = Modifier.fillMaxWidth(),
+        enabled = inputValue.isNotEmpty(),
+        onClick = onOpenClicked,
+      ) {
+        Text(stringResource(R.string.open_link_button_label))
+      }
     }
   }
 }
