@@ -1,5 +1,5 @@
 [versions]
-agp = "8.1.1"
+agp = "8.1.2"
 dagger = "2.48"
 jetpack-activity = "1.7.2"
 jetpack-compose = "1.5.2"
