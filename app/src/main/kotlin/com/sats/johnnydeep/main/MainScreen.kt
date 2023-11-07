@@ -16,22 +16,23 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.ListItem
-import androidx.compose.material.Scaffold
-import androidx.compose.material.SnackbarResult
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,15 +62,15 @@ fun MainScreen(
   modifier: Modifier = Modifier,
 ) {
   val context = LocalContext.current
-  val scaffoldState = rememberScaffoldState()
+  val snackbarHostState = remember { SnackbarHostState() }
   val coroutineScope = rememberCoroutineScope()
 
   viewState.intentDeletedNotice?.let { intentDeletedNotice ->
     LaunchedEffect(intentDeletedNotice) {
       coroutineScope.launch {
-        scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+        snackbarHostState.currentSnackbarData?.dismiss()
 
-        val result = scaffoldState.snackbarHostState.showSnackbar(
+        val result = snackbarHostState.showSnackbar(
           message = context.getString(R.string.previous_intent_deleted),
           actionLabel = context.getString(R.string.previous_intent_deleted_undo_button_label),
         )
@@ -84,9 +85,9 @@ fun MainScreen(
   viewState.intentFailedNotice?.let { intentFailedNotice ->
     LaunchedEffect(intentFailedNotice) {
       coroutineScope.launch {
-        scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+        snackbarHostState.currentSnackbarData?.dismiss()
 
-        scaffoldState.snackbarHostState.showSnackbar(
+        snackbarHostState.showSnackbar(
           message = context.getString(R.string.activity_not_found_toast_message),
         )
 
@@ -97,7 +98,7 @@ fun MainScreen(
 
   Scaffold(
     modifier = modifier,
-    scaffoldState = scaffoldState,
+    snackbarHost = { SnackbarHost(snackbarHostState) },
     bottomBar = {
       val inputValue = viewState.inputValue
 
@@ -117,7 +118,7 @@ fun MainScreen(
             onUriFailedToOpen(inputValue)
 
             coroutineScope.launch {
-              scaffoldState.snackbarHostState.showSnackbar(
+              snackbarHostState.showSnackbar(
                 context.getString(R.string.activity_not_found_toast_message)
               )
             }
@@ -148,7 +149,7 @@ fun MainScreen(
   }
 }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun History(
   previousIntents: List<PreviousIntent>,
@@ -167,9 +168,9 @@ private fun History(
         modifier = Modifier
           .animateItemPlacement()
           .clickable(onClick = { onItemClicked(previousIntent) }),
-        text = { Text(previousIntent.uri) },
-        secondaryText = { Text(previousIntent.openedAt.toReadableString()) },
-        trailing = {
+        headlineContent = { Text(previousIntent.uri) },
+        supportingContent = { Text(previousIntent.openedAt.toReadableString()) },
+        trailingContent = {
           IconButton(onClick = { onRemoveItem(previousIntent) }) {
             Icon(Icons.Default.Delete, contentDescription = null)
           }
@@ -186,7 +187,7 @@ private fun Form(
   onOpenClicked: () -> Unit,
   modifier: Modifier = Modifier,
 ) {
-  Surface(elevation = 2.dp) {
+  Surface(tonalElevation = 2.dp) {
     Column(
       modifier = modifier.padding(16.dp),
       horizontalAlignment = Alignment.CenterHorizontally,

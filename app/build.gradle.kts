@@ -34,7 +34,7 @@ android {
   }
 
   composeOptions {
-    kotlinCompilerExtensionVersion = libs.versions.jetpack.compose.compiler.get()
+    kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
   }
 
   kotlinOptions {
@@ -76,7 +76,7 @@ dependencies {
   implementation(libs.androidx.compose.foundation)
   implementation(libs.androidx.compose.material.icons.core)
   implementation(libs.androidx.compose.material.icons.extended)
-  implementation(libs.androidx.compose.material.material)
+  implementation(libs.androidx.compose.material3)
   implementation(libs.androidx.compose.runtime.runtime)
   implementation(libs.androidx.compose.ui.tooling)
   implementation(libs.androidx.compose.ui.ui)
