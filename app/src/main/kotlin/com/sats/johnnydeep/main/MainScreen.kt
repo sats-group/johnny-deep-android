@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
@@ -18,13 +17,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Button
-import androidx.compose.material.Divider
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.ListItem
 import androidx.compose.material.Scaffold
-import androidx.compose.material.SnackbarDuration
 import androidx.compose.material.SnackbarResult
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -41,12 +38,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.core.net.toUri
 import com.sats.johnnydeep.R
 import com.sats.johnnydeep.history.PreviousIntent
-import com.sats.johnnydeep.ui.theme.JohnnyDeepTheme
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
@@ -55,80 +50,100 @@ import kotlinx.datetime.toLocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun MainScreen(viewModel: MainViewModel = viewModel()) {
+fun MainScreen(
+  viewState: MainViewState,
+  onUriOpenedSuccessfully: (String) -> Unit,
+  onUriFailedToOpen: (String) -> Unit,
+  onNoticeDismissed: () -> Unit,
+  onPreviousIntentClicked: (PreviousIntent) -> Unit,
+  onPreviousIntentRemoved: (PreviousIntent) -> Unit,
+  onInputValueChange: (String) -> Unit,
+  modifier: Modifier = Modifier,
+) {
   val context = LocalContext.current
   val scaffoldState = rememberScaffoldState()
   val coroutineScope = rememberCoroutineScope()
-  val inputValue = viewModel.inputValue
-  val previousIntents = viewModel.previousIntents
 
-  LaunchedEffect(Unit) {
-    viewModel.viewEffect.collect { viewEffect ->
-      when (viewEffect) {
-        is MainViewEffect.StartIntent -> {
+  viewState.intentDeletedNotice?.let { intentDeletedNotice ->
+    LaunchedEffect(intentDeletedNotice) {
+      coroutineScope.launch {
+        scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+
+        val result = scaffoldState.snackbarHostState.showSnackbar(
+          message = context.getString(R.string.previous_intent_deleted),
+          actionLabel = context.getString(R.string.previous_intent_deleted_undo_button_label),
+        )
+
+        if (result == SnackbarResult.ActionPerformed) intentDeletedNotice.undo()
+
+        onNoticeDismissed()
+      }
+    }
+  }
+
+  viewState.intentFailedNotice?.let { intentFailedNotice ->
+    LaunchedEffect(intentFailedNotice) {
+      coroutineScope.launch {
+        scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+
+        scaffoldState.snackbarHostState.showSnackbar(
+          message = context.getString(R.string.activity_not_found_toast_message),
+        )
+
+        onNoticeDismissed()
+      }
+    }
+  }
+
+  Scaffold(
+    modifier = modifier,
+    scaffoldState = scaffoldState,
+    bottomBar = {
+      val inputValue = viewState.inputValue
+
+      Form(
+        inputValue = inputValue,
+        onInputChange = onInputValueChange,
+        onOpenClicked = {
           try {
-            val intent = Intent(Intent.ACTION_VIEW, viewEffect.uri).apply {
+            val intent = Intent(Intent.ACTION_VIEW, inputValue.toUri()).apply {
               addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
 
             context.startActivity(intent)
+
+            onUriOpenedSuccessfully(inputValue)
           } catch (activityNotFoundException: ActivityNotFoundException) {
+            onUriFailedToOpen(inputValue)
+
             coroutineScope.launch {
               scaffoldState.snackbarHostState.showSnackbar(
                 context.getString(R.string.activity_not_found_toast_message)
               )
             }
           }
-        }
-
-        is MainViewEffect.ShowIntentDeletedSnackBar -> {
-          coroutineScope.launch {
-            val result = scaffoldState.snackbarHostState.showSnackbar(
-              message = context.getString(R.string.previous_intent_deleted),
-              actionLabel = context.getString(R.string.previous_intent_deleted_undo_button_label),
-              duration = SnackbarDuration.Long,
-            )
-
-            when (result) {
-              SnackbarResult.ActionPerformed -> viewEffect.undoAction()
-              else -> {}
-            }
-          }
-        }
-      }
-    }
-  }
-
-  JohnnyDeepTheme {
-    Scaffold(
-      scaffoldState = scaffoldState,
-      bottomBar = {
-        Form(
-          inputValue = inputValue,
-          onInputChange = viewModel::onInputValueChange,
-          onOpenClicked = viewModel::onOpenClicked,
-          modifier = Modifier
-              .navigationBarsPadding()
-              .imePadding(),
+        },
+        modifier = Modifier
+          .navigationBarsPadding()
+          .imePadding(),
+      )
+    },
+  ) { contentPadding ->
+    Column(
+      Modifier
+        .fillMaxSize()
+        .padding(contentPadding)
+    ) {
+      History(
+        previousIntents = viewState.previousIntents,
+        onItemClicked = onPreviousIntentClicked,
+        onRemoveItem = onPreviousIntentRemoved,
+        modifier = Modifier.weight(1f),
+        contentPadding = PaddingValues(
+          start = contentPadding.calculateStartPadding(LocalLayoutDirection.current),
+          end = contentPadding.calculateEndPadding(LocalLayoutDirection.current),
         )
-      },
-    ) { contentPadding ->
-      Column(
-          Modifier
-              .fillMaxSize()
-              .padding(contentPadding)
-      ) {
-        History(
-          previousIntents = previousIntents,
-          onItemClicked = viewModel::onPreviousIntentClicked,
-          onRemoveItem = viewModel::onRemovePreviousButtonClicked,
-          modifier = Modifier.weight(1f),
-          contentPadding = PaddingValues(
-            start = contentPadding.calculateStartPadding(LocalLayoutDirection.current),
-            end = contentPadding.calculateEndPadding(LocalLayoutDirection.current),
-          )
-        )
-      }
+      )
     }
   }
 }
@@ -150,8 +165,8 @@ private fun History(
     items(previousIntents, key = { it.uri }) { previousIntent ->
       ListItem(
         modifier = Modifier
-            .animateItemPlacement()
-            .clickable(onClick = { onItemClicked(previousIntent) }),
+          .animateItemPlacement()
+          .clickable(onClick = { onItemClicked(previousIntent) }),
         text = { Text(previousIntent.uri) },
         secondaryText = { Text(previousIntent.openedAt.toReadableString()) },
         trailing = {
