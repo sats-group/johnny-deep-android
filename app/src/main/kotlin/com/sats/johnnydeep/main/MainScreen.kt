@@ -30,6 +30,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
@@ -83,6 +84,8 @@ fun MainScreen(
         val result = snackbarHostState.showSnackbar(
           message = context.getString(R.string.previous_intent_deleted),
           actionLabel = context.getString(R.string.previous_intent_deleted_undo_button_label),
+          duration = SnackbarDuration.Short,
+          withDismissAction = true,
         )
 
         if (result == SnackbarResult.ActionPerformed) intentDeletedNotice.undo()
