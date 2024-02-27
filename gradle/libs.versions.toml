@@ -2,7 +2,7 @@
 androidx-compose = "1.6.2"
 androidx-compose-compiler = "1.5.8" # referenced directly by name in build scripts
 androidx-room = "2.6.1"
-dagger = "2.50"
+dagger = "2.51"
 kotlin = "1.9.22"
 
 [plugins]
