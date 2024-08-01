@@ -4,6 +4,7 @@ plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.dagger.hilt.android)
   alias(libs.plugins.kotlin.android)
+  alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.ksp)
 }
 
@@ -25,16 +26,8 @@ android {
     }
   }
 
-  buildFeatures {
-    compose = true
-  }
-
   compileOptions {
     isCoreLibraryDesugaringEnabled = true
-  }
-
-  composeOptions {
-    kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
   }
 
   kotlinOptions {
@@ -61,6 +54,10 @@ android {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
   }
+}
+
+composeCompiler {
+  enableStrongSkippingMode = true
 }
 
 configure<HiltExtension> {
