@@ -83,6 +83,3 @@ class MainViewModel @Inject constructor(
     )
   }
 }
-
-sealed interface MainViewEffect {
-}
