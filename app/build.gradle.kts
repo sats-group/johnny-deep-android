@@ -65,9 +65,7 @@ configure<HiltExtension> {
 }
 
 dependencies {
-  androidTestImplementation(libs.androidx.compose.ui.test.junit4)
   coreLibraryDesugaring(libs.android.desugarJdkLibs)
-  implementation(libs.accompanist.insetsUi)
   implementation(libs.androidx.activity.compose)
   implementation(libs.androidx.compose.animation)
   implementation(libs.androidx.compose.foundation)
@@ -85,5 +83,4 @@ dependencies {
   implementation(libs.kotlinx.datetime)
   ksp(libs.androidx.room.compiler)
   ksp(libs.dagger.hilt.compiler)
-  testImplementation(libs.junit4)
 }
