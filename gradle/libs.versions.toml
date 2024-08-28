@@ -12,7 +12,7 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 ksp = { id = "com.google.devtools.ksp", version = "2.0.20-1.0.24" }
 
 [libraries]
-android-desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.1.0"
+android-desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.1.1"
 androidx-activity-compose = "androidx.activity:activity-compose:1.9.1"
 androidx-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "androidx-compose" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose" }
