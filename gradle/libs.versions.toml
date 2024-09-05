@@ -22,7 +22,7 @@ androidx-compose-material3 = "androidx.compose.material3:material3:1.2.1"
 androidx-compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "androidx-compose" }
 androidx-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose" }
-androidx-lifecycle-viewModel-compose = "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4"
+androidx-lifecycle-viewModel-compose = "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.5"
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
 androidx-room-runtime = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
