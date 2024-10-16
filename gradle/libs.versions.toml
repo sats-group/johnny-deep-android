@@ -13,7 +13,7 @@ ksp = { id = "com.google.devtools.ksp", version = "2.0.21-1.0.25" }
 
 [libraries]
 android-desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.1.2"
-androidx-activity-compose = "androidx.activity:activity-compose:1.9.2"
+androidx-activity-compose = "androidx.activity:activity-compose:1.9.3"
 androidx-compose-animation = { module = "androidx.compose.animation:animation", version.ref = "androidx-compose" }
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose" }
 androidx-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "androidx-compose" }
