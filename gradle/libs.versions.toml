@@ -2,7 +2,7 @@
 androidx-compose = "1.7.5"
 androidx-room = "2.6.1"
 dagger = "2.53"
-kotlin = "2.0.21"
+kotlin = "2.1.0"
 
 [plugins]
 android-application = { id = "com.android.application", version = "8.7.3" }
