@@ -1,7 +1,7 @@
 [versions]
 androidx-compose = "1.7.6"
 androidx-room = "2.6.1"
-dagger = "2.54"
+dagger = "2.55"
 kotlin = "2.1.0"
 
 [plugins]
