@@ -29,4 +29,4 @@ dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref =
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
 google-material = "com.google.android.material:material:1.12.0"
 kotlin-stdLib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk7", version.ref = "kotlin" }
-kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.6.1"
+kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.6.2"
