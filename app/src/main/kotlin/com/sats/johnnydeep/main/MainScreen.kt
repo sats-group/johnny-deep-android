@@ -179,7 +179,7 @@ private fun History(
     items(previousIntents, key = { it.uri }) { previousIntent ->
       ListItem(
         modifier = Modifier
-          .animateItemPlacement()
+          .animateItem()
           .clickable(onClick = { onItemClicked(previousIntent) }),
         headlineContent = { Text(previousIntent.uri) },
         supportingContent = { Text(previousIntent.openedAt.toReadableString()) },

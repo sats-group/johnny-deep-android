@@ -81,6 +81,7 @@ dependencies {
   implementation(libs.google.material)
   implementation(libs.kotlin.stdLib)
   implementation(libs.kotlinx.datetime)
+  implementation(platform(libs.androidx.compose.bom))
   ksp(libs.androidx.room.compiler)
   ksp(libs.dagger.hilt.compiler)
 }
