@@ -20,10 +20,10 @@ android {
 
     versionCode = 1
     versionName = "0.1.0"
+  }
 
-    ksp {
-      arg("room.schemaLocation", "$projectDir/room-schemas")
-    }
+  ksp {
+    arg("room.schemaLocation", "$projectDir/room-schemas")
   }
 
   compileOptions {
