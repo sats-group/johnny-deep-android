@@ -127,7 +127,7 @@ fun MainScreen(
             context.startActivity(intent)
 
             onUriOpenedSuccessfully(inputValue)
-          } catch (activityNotFoundException: ActivityNotFoundException) {
+          } catch (_: ActivityNotFoundException) {
             onUriFailedToOpen(inputValue)
 
             coroutineScope.launch {
