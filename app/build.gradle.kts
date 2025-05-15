@@ -56,10 +56,6 @@ android {
   }
 }
 
-composeCompiler {
-  enableStrongSkippingMode = true
-}
-
 configure<HiltExtension> {
   enableAggregatingTask = true
 }
