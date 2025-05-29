@@ -4,7 +4,7 @@ dagger = "2.56.2"
 kotlin = "2.1.21"
 
 [plugins]
-android-application = { id = "com.android.application", version = "8.10.0" }
+android-application = { id = "com.android.application", version = "8.10.1" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
