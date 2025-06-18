@@ -1,5 +1,5 @@
 [versions]
-androidx-room = "2.7.1"
+androidx-room = "2.7.2"
 dagger = "2.56.2"
 kotlin = "2.1.21"
 
