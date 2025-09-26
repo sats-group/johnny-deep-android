@@ -1,6 +1,6 @@
 [versions]
 androidx-room = "2.8.1"
-dagger = "2.57.1"
+dagger = "2.57.2"
 kotlin = "2.2.20"
 
 [plugins]
