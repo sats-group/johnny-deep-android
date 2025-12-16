@@ -1,7 +1,7 @@
 [versions]
 androidx-room = "2.8.4"
 dagger = "2.57.2"
-kotlin = "2.2.21"
+kotlin = "2.3.0"
 
 [plugins]
 android-application = { id = "com.android.application", version = "8.13.2" }
