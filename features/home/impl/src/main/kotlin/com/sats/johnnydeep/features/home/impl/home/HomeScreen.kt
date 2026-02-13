@@ -52,9 +52,9 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sats.core.domain.api.history.models.PreviousIntent
 import com.sats.johnnydeep.features.home.impl.R
+import dev.zacsweers.metrox.viewmodel.metroViewModel
 import java.time.format.DateTimeFormatter
 import kotlin.time.Instant
 import kotlinx.coroutines.launch
@@ -64,7 +64,7 @@ import kotlinx.datetime.toLocalDateTime
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier) {
-  val viewModel: HomeViewModel = viewModel()
+  val viewModel: HomeViewModel = metroViewModel()
 
   HomeScreen(
     modifier = modifier,

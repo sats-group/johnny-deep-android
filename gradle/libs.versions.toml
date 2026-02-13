@@ -1,18 +1,17 @@
 [versions]
 androidx-lifecycle = "2.10.0"
 androidx-room = "2.8.4"
-dagger = "2.59.1"
-dagger-auto = "2.1.0"
 kotlin = "2.3.10"
 kotlinx-coroutines = "1.10.2"
+metro = "0.10.3"
 
 [plugins]
 android-application = { id = "com.android.application", version = "9.0.0" }
 android-library = { id = "com.android.library", version = "9.0.0" }
-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version = "2.3.5" }
+metro = { id = "dev.zacsweers.metro", version.ref = "metro" }
 
 [libraries]
 android-desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.1.5"
@@ -27,10 +26,8 @@ androidx-core = "androidx.core:core:1.17.0"
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
 androidx-room-runtime = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
-dagger-auto-compiler = { module = "se.ansman.dagger.auto:compiler", version.ref = "dagger-auto" }
-dagger-auto-core = { module = "se.ansman.dagger.auto:core", version.ref = "dagger-auto" }
-dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
-dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
 google-material = "com.google.android.material:material:1.13.0"
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.7.1"
+metrox-android = { module = "dev.zacsweers.metro:metrox-android", version.ref = "metro" }
+metrox-viewmodel-compose = { module = "dev.zacsweers.metro:metrox-viewmodel-compose", version.ref = "metro" }

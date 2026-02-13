@@ -8,8 +8,8 @@ import com.sats.core.domain.impl.history.db.entities.PreviousIntentEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-internal interface IntentsDao {
-  @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
+interface IntentsDao {
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun upsertIntent(intent: PreviousIntentEntity)
 
   @Query("SELECT * FROM intents ORDER BY openedAt DESC")

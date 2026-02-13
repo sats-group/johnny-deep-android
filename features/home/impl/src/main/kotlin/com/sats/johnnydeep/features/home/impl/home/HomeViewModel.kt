@@ -7,12 +7,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sats.core.domain.api.history.HistoryRepository
 import com.sats.core.domain.api.history.models.PreviousIntent
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesIntoMap
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metrox.viewmodel.ViewModelKey
 import kotlinx.coroutines.launch
 
-@HiltViewModel
-internal class HomeViewModel @Inject constructor(
+@Inject
+@ViewModelKey(HomeViewModel::class)
+@ContributesIntoMap(AppScope::class)
+class HomeViewModel(
   private val historyRepository: HistoryRepository,
 ) : ViewModel() {
   var viewState: HomeViewState by mutableStateOf(HomeViewState())

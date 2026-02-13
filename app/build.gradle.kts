@@ -1,8 +1,7 @@
 plugins {
   alias(libs.plugins.android.application)
-  alias(libs.plugins.dagger.hilt.android)
   alias(libs.plugins.kotlin.compose)
-  alias(libs.plugins.ksp)
+  alias(libs.plugins.metro)
 }
 
 android {
@@ -12,7 +11,7 @@ android {
     applicationId = "com.sats.johnnydeep"
 
     compileSdk = 36
-    minSdk = 26
+    minSdk = 28
     targetSdk = 36
 
     versionCode = 1
@@ -42,11 +41,11 @@ kotlin {
 
 dependencies {
   implementation(libs.androidx.activity.compose)
-  implementation(libs.dagger.hilt.android)
+  implementation(libs.metrox.android)
+  implementation(libs.metrox.viewmodel.compose)
   implementation(platform(libs.androidx.compose.bom))
   implementation(projects.core.domain.api)
   implementation(projects.core.domain.impl)
   implementation(projects.core.ui.theme)
   implementation(projects.features.home.impl)
-  ksp(libs.dagger.hilt.compiler)
 }

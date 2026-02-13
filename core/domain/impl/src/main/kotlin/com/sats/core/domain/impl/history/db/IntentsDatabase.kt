@@ -12,6 +12,6 @@ import com.sats.core.domain.impl.history.db.entities.PreviousIntentEntity
     PreviousIntentEntity::class,
   ],
 )
-internal abstract class IntentsDatabase : RoomDatabase() {
+abstract class IntentsDatabase : RoomDatabase() {
   abstract fun intentsDao(): IntentsDao
 }

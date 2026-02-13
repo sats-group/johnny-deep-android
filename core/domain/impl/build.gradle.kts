@@ -1,5 +1,6 @@
 plugins {
   alias(libs.plugins.android.library)
+  alias(libs.plugins.metro)
   alias(libs.plugins.ksp)
 }
 
@@ -8,7 +9,7 @@ android {
 
   defaultConfig {
     compileSdk = 36
-    minSdk = 26
+    minSdk = 28
   }
 }
 
@@ -23,11 +24,7 @@ ksp {
 dependencies {
   coreLibraryDesugaring(libs.android.desugarJdkLibs)
   implementation(libs.androidx.room.runtime)
-  implementation(libs.dagger.auto.core)
-  implementation(libs.dagger.hilt.android)
   implementation(libs.kotlinx.coroutines.core)
   implementation(projects.core.domain.api)
   ksp(libs.androidx.room.compiler)
-  ksp(libs.dagger.auto.compiler)
-  ksp(libs.dagger.hilt.compiler)
 }
