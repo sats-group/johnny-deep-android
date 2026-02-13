@@ -1,4 +1,4 @@
-package com.sats.johnnydeep.features.home.impl.home
+package com.sats.johnnydeep.features.home.impl
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -53,30 +53,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.sats.core.domain.api.history.models.PreviousIntent
-import com.sats.johnnydeep.features.home.impl.R
-import dev.zacsweers.metrox.viewmodel.metroViewModel
 import java.time.format.DateTimeFormatter
 import kotlin.time.Instant
 import kotlinx.coroutines.launch
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toLocalDateTime
-
-@Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
-  val viewModel: HomeViewModel = metroViewModel()
-
-  HomeScreen(
-    modifier = modifier,
-    viewState = viewModel.viewState,
-    onUriOpenedSuccessfully = viewModel::onUriOpenedSuccessfully,
-    onUriFailedToOpen = viewModel::onUriFailedToOpen,
-    onNoticeDismissed = viewModel::onNoticeDismissed,
-    onPreviousIntentClicked = viewModel::onPreviousIntentClicked,
-    onPreviousIntentRemoved = viewModel::onPreviousIntentRemoved,
-    onInputValueChange = viewModel::onInputValueChange,
-  )
-}
 
 @Composable
 internal fun HomeScreen(

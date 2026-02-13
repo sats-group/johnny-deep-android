@@ -1,4 +1,4 @@
-package com.sats.johnnydeep.features.home.impl.home
+package com.sats.johnnydeep.features.home.impl
 
 import com.sats.core.domain.api.history.models.PreviousIntent
 

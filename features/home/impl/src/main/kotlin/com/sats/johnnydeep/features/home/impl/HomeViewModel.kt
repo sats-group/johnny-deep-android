@@ -1,4 +1,4 @@
-package com.sats.johnnydeep.features.home.impl.home
+package com.sats.johnnydeep.features.home.impl
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

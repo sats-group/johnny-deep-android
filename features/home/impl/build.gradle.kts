@@ -21,4 +21,5 @@ dependencies {
   implementation(libs.metrox.android)
   implementation(libs.metrox.viewmodel.compose)
   implementation(projects.core.domain.api)
+  implementation(projects.features.home.api)
 }
