@@ -3,7 +3,6 @@ import dagger.hilt.android.plugin.HiltExtension
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.dagger.hilt.android)
-  alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.ksp)
 }
@@ -22,16 +21,8 @@ android {
     versionName = "0.1.0"
   }
 
-  ksp {
-    arg("room.schemaLocation", "$projectDir/room-schemas")
-  }
-
   compileOptions {
     isCoreLibraryDesugaringEnabled = true
-  }
-
-  kotlinOptions {
-    jvmTarget = JavaVersion.VERSION_11.toString()
   }
 
   buildTypes {
@@ -46,14 +37,17 @@ android {
       isDebuggable = false
       isMinifyEnabled = true
 
-      proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
   }
+}
 
-  compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-  }
+kotlin {
+  jvmToolchain(11)
+}
+
+ksp {
+  arg("room.schemaLocation", "$projectDir/room-schemas")
 }
 
 configure<HiltExtension> {
