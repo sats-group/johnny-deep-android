@@ -6,7 +6,7 @@ kotlinx-coroutines = "1.10.2"
 metro = "0.10.3"
 
 [plugins]
-android-application = { id = "com.android.application", version = "9.0.0" }
+android-application = { id = "com.android.application", version = "9.0.1" }
 android-library = { id = "com.android.library", version = "9.0.0" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
