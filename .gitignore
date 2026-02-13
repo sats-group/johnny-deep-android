@@ -1,11 +1,8 @@
 *.iml
 .cxx
 .externalNativeBuild
-.gradle
+.gradle/
+.idea/
+build/
+captures/
 local.properties
-
-/.idea/*
-/build
-/captures
-
-!/.idea/codeStyles
