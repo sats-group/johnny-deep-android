@@ -1,4 +1,4 @@
-package com.sats.johnnydeep.ui.theme
+package com.sats.johnnydeep.core.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

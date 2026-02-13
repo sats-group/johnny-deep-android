@@ -1,31 +1,21 @@
-package com.sats.johnnydeep.main
+package com.sats.johnnydeep.features.home.impl.home
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sats.johnnydeep.history.HistoryRepository
-import com.sats.johnnydeep.history.PreviousIntent
+import com.sats.core.domain.api.history.HistoryRepository
+import com.sats.core.domain.api.history.models.PreviousIntent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-data class MainViewState(
-  val inputValue: String = "",
-  val previousIntents: List<PreviousIntent> = emptyList(),
-  val intentDeletedNotice: IntentDeletedNotice? = null,
-  val intentFailedNotice: IntentFailedNotice? = null,
-)
-
-class IntentDeletedNotice(val undo: () -> Unit)
-object IntentFailedNotice
+import kotlinx.coroutines.launch
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+internal class HomeViewModel @Inject constructor(
   private val historyRepository: HistoryRepository,
 ) : ViewModel() {
-  var viewState: MainViewState by mutableStateOf(MainViewState())
+  var viewState: HomeViewState by mutableStateOf(HomeViewState())
     private set
 
   init {

@@ -1,4 +1,4 @@
-package com.sats.johnnydeep.history
+package com.sats.core.domain.api.history.models
 
 import kotlin.time.Instant
 

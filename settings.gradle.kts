@@ -25,3 +25,7 @@ dependencyResolutionManagement {
 rootProject.name = "johnny-deep"
 
 include(":app")
+include(":core:domain:api")
+include(":core:domain:impl")
+include(":core:ui:theme")
+include(":features:home:impl")
