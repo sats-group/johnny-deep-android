@@ -1,10 +1,10 @@
 package com.sats.johnnydeep.history
 
+import javax.inject.Inject
+import kotlin.time.Clock
+import kotlin.time.Instant
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
-import javax.inject.Inject
 
 class HistoryRepository @Inject constructor(private val intentsDao: IntentsDao) {
   fun getIntentsHistory(): Flow<List<PreviousIntent>> {

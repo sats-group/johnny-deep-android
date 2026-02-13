@@ -54,12 +54,12 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import com.sats.johnnydeep.R
 import com.sats.johnnydeep.history.PreviousIntent
+import java.time.format.DateTimeFormatter
+import kotlin.time.Instant
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toLocalDateTime
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun MainScreen(

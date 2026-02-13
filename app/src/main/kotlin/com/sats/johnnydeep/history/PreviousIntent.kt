@@ -1,5 +1,5 @@
 package com.sats.johnnydeep.history
 
-import kotlinx.datetime.Instant
+import kotlin.time.Instant
 
 data class PreviousIntent(val uri: String, val openedAt: Instant)
