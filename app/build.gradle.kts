@@ -41,11 +41,14 @@ kotlin {
 
 dependencies {
   implementation(libs.androidx.activity.compose)
+  implementation(libs.androidx.navigation3.runtime)
+  implementation(libs.androidx.navigation3.ui)
   implementation(libs.metrox.android)
   implementation(libs.metrox.viewmodel.compose)
   implementation(platform(libs.androidx.compose.bom))
   implementation(projects.core.domain.api)
   implementation(projects.core.domain.impl)
   implementation(projects.core.ui.theme)
+  implementation(projects.features.home.api)
   implementation(projects.features.home.impl)
 }
