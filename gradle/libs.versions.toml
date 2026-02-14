@@ -3,7 +3,7 @@ androidx-lifecycle = "2.10.0"
 androidx-room = "2.8.4"
 kotlin = "2.3.10"
 kotlinx-coroutines = "1.10.2"
-metro = "0.10.3"
+metro = "0.10.4"
 
 [plugins]
 android-application = { id = "com.android.application", version = "9.0.0" }
