@@ -4,4 +4,4 @@ import com.sats.core.navigation.navkey.AppNavKey
 import kotlinx.serialization.Serializable
 
 @Serializable
-object HomeNavKey : AppNavKey
+data object HomeNavKey : AppNavKey

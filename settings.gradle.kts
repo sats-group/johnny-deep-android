@@ -30,6 +30,7 @@ rootProject.name = "johnny-deep"
 include(":app")
 include(":core:domain:api")
 include(":core:domain:impl")
+include(":core:navigation:entry-builder")
 include(":core:navigation:nav-key")
 include(":core:navigation:navigator")
 include(":core:ui:theme")

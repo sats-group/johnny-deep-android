@@ -7,17 +7,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sats.core.domain.api.history.HistoryRepository
 import com.sats.core.domain.api.history.models.PreviousIntent
+import com.sats.johnnydeep.features.home.api.HomeNavKey
 import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.Assisted
+import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.AssistedInject
 import dev.zacsweers.metro.ContributesIntoMap
-import dev.zacsweers.metro.Inject
-import dev.zacsweers.metrox.viewmodel.ViewModelKey
+import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactory
+import dev.zacsweers.metrox.viewmodel.ManualViewModelAssistedFactoryKey
 import kotlinx.coroutines.launch
 
-@Inject
-@ViewModelKey(HomeViewModel::class)
-@ContributesIntoMap(AppScope::class)
+@AssistedInject
 class HomeViewModel(
   private val historyRepository: HistoryRepository,
+  @Assisted val navKey: HomeNavKey,
 ) : ViewModel() {
   var viewState: HomeViewState by mutableStateOf(HomeViewState())
     private set
@@ -75,5 +78,12 @@ class HomeViewModel(
       intentFailedNotice = null,
       intentDeletedNotice = null,
     )
+  }
+
+  @AssistedFactory
+  @ManualViewModelAssistedFactoryKey(Factory::class)
+  @ContributesIntoMap(AppScope::class)
+  fun interface Factory : ManualViewModelAssistedFactory {
+    fun create(navKey: HomeNavKey): HomeViewModel
   }
 }
