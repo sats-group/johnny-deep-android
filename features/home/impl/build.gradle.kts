@@ -20,6 +20,5 @@ dependencies {
   implementation(libs.kotlinx.datetime)
   implementation(libs.metrox.android)
   implementation(libs.metrox.viewmodel.compose)
-  implementation(platform(libs.androidx.compose.bom))
   implementation(projects.core.domain.api)
 }

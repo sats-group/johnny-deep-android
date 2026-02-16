@@ -1,8 +1,6 @@
 [versions]
-androidx-lifecycle = "2.10.0"
 androidx-room = "2.8.4"
 kotlin = "2.3.10"
-kotlinx-coroutines = "1.10.2"
 metro = "0.10.4"
 
 [plugins]
@@ -19,18 +17,17 @@ metro = { id = "dev.zacsweers.metro", version.ref = "metro" }
 [libraries]
 android-desugarJdkLibs = "com.android.tools:desugar_jdk_libs:2.1.5"
 androidx-activity-compose = "androidx.activity:activity-compose:1.12.4"
-androidx-compose-bom = "androidx.compose:compose-bom-alpha:2026.02.00"
-androidx-compose-foundation = { module = "androidx.compose.foundation:foundation" }
-androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
-androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
-androidx-compose-runtime = { module = "androidx.compose.runtime:runtime" }
-androidx-compose-ui = { module = "androidx.compose.ui:ui" }
+androidx-compose-foundation = "androidx.compose.foundation:foundation:1.11.0-alpha05"
+androidx-compose-material-icons-extended = "androidx.compose.material:material-icons-extended:1.7.8"
+androidx-compose-material3 = "androidx.compose.material3:material3:1.5.0-alpha14"
+androidx-compose-runtime = "androidx.compose.runtime:runtime:1.11.0-alpha05"
+androidx-compose-ui = "androidx.compose.ui:ui:1.11.0-alpha05"
 androidx-core = "androidx.core:core:1.17.0"
-androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-compose = "androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0"
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
 androidx-room-runtime = { module = "androidx.room:room-ktx", version.ref = "androidx-room" }
 google-material = "com.google.android.material:material:1.13.0"
-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2"
 kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.7.1"
 metrox-android = { module = "dev.zacsweers.metro:metrox-android", version.ref = "metro" }
 metrox-viewmodel-compose = { module = "dev.zacsweers.metro:metrox-viewmodel-compose", version.ref = "metro" }
