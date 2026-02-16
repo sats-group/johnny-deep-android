@@ -1,20 +1,11 @@
 plugins {
-  alias(libs.plugins.android.library)
+  alias(libs.plugins.convention.android.library)
   alias(libs.plugins.metro)
   alias(libs.plugins.ksp)
 }
 
 android {
   namespace = "com.sats.johnnydeep.core.domain.impl"
-
-  defaultConfig {
-    compileSdk = 36
-    minSdk = 28
-  }
-}
-
-kotlin {
-  jvmToolchain(11)
 }
 
 ksp {

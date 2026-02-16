@@ -1,11 +1,7 @@
 plugins {
-  alias(libs.plugins.kotlin.jvm)
+  alias(libs.plugins.convention.jvm.library)
 }
 
 dependencies {
   implementation(libs.kotlinx.coroutines.core)
-}
-
-kotlin {
-  jvmToolchain(11)
 }

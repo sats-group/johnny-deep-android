@@ -1,16 +1,11 @@
 plugins {
-  alias(libs.plugins.android.library)
+  alias(libs.plugins.convention.android.library)
   alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.metro)
 }
 
 android {
   namespace = "com.sats.johnnydeep.features.home.impl"
-
-  defaultConfig {
-    compileSdk = 36
-    minSdk = 28
-  }
 }
 
 dependencies {
