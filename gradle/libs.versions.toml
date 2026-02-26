@@ -23,7 +23,7 @@ androidx-compose-foundation = "androidx.compose.foundation:foundation:1.11.0-alp
 androidx-compose-material-icons-extended = "androidx.compose.material:material-icons-extended:1.7.8"
 androidx-compose-material3 = "androidx.compose.material3:material3:1.5.0-alpha15"
 androidx-compose-runtime = "androidx.compose.runtime:runtime:1.11.0-alpha05"
-androidx-compose-ui = "androidx.compose.ui:ui:1.11.0-alpha05"
+androidx-compose-ui = "androidx.compose.ui:ui:1.11.0-alpha06"
 androidx-core = "androidx.core:core:1.17.0"
 androidx-lifecycle-viewmodel-compose = "androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0"
 androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "androidx-navigation3" }
