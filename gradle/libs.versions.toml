@@ -1,5 +1,5 @@
 [versions]
-androidx-room = "2.8.4"
+androidx-room = "2.8.5"
 circuit = "0.38.0"
 kotlin = "2.4.20"
 metro = "1.4.3"
